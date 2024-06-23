@@ -110,11 +110,11 @@ public class ThanhToan extends JFrame {
         String mabn = maBenhNhanIdField.getText();
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
         String ngaykham = outputFormat.format(dateChooser.getDate());
-        String sql = "UPDATE khambenh k\n" +
+        String sql = "UPDATE KHAMBENH k\n" +
                 " JOIN (\n" +
                 "    SELECT makb \n" +
-                "    FROM khambenh \n" +
-                "    WHERE mabn = " + mabn + " AND ngaykham = '" + ngaykham + "'\n" +
+                "    FROM KHAMBENH \n" +
+                "    WHERE mabn = '" + mabn + "' AND ngaykham = '" + ngaykham + "'\n" +
                 " ) tmp ON k.makb = tmp.makb\n" +
                 " SET thanhtoan = 1;";
         try {
@@ -135,10 +135,10 @@ public class ThanhToan extends JFrame {
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
         String ngaykham = outputFormat.format(dateChooser.getDate());
         System.out.println(dathanhtoan.isSelected());
-        String sql = "select * from khambenh \n" +
-                " inner join thuphi\n" +
-                " on thuphi.makb = khambenh.makb\n" +
-                " where mabn = " + mabn + "\n" +
+        String sql = "select * from KHAMBENH \n" +
+                " inner join THUPHI\n" +
+                " on THUPHI.makb = KHAMBENH.makb\n" +
+                " where mabn = '" + mabn + "'\n" +
                 " and ngaykham ='" + ngaykham + "';";
         try {
             JDBCConnect jdbcConnect = new JDBCConnect();
@@ -152,7 +152,7 @@ public class ThanhToan extends JFrame {
                 yeuCauKhamField.setEnabled(false);
                 ketLuanArea.setEnabled(false);
                 tongtienTextField.setEnabled(false);
-                sql = "select tenbn from benhnhan where mabn = " + mabn + ";";
+                sql = "select tenbn from BENHNHAN where mabn = '" + mabn + "';";
                 resultSet = jdbcConnect.executeCommandGet(sql);
                 if (resultSet.next()) {
                     tenBenhNhanField.setText(resultSet.getString("tenbn"));

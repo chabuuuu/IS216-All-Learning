@@ -240,8 +240,8 @@ public class ThemBenhNhan extends JFrame {
             sex1 = "FALSE";
         }
 
-        String sql = "INSERT INTO BENHNHAN (MABN, TENBN, NGSINH, DCHI, DTHOAI, GIOITINH) VALUES (" + userId + ", '" + username + "', '" + dob1 + "', '" + address + "', '" + phonenumber + "', "+ sex1 + ");";
-
+        String sql = "INSERT INTO BENHNHAN (MABN, TENBN, NGSINH, DCHI, DTHOAI, GIOITINH) VALUES ('" + userId + "'" + ", '" + username + "', '" + dob1 + "', '" + address + "', '" + phonenumber + "', "+ sex1 + ");";
+        System.out.println(sql);
         try {
             JDBCConnect jdbcConnect = new JDBCConnect();
             jdbcConnect.executeCommandInsert(sql);

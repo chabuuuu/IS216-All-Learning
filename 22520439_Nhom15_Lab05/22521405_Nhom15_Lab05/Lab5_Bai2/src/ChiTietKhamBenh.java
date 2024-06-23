@@ -48,7 +48,7 @@ public class ChiTietKhamBenh extends JFrame {
     }
 
     public ChiTietKhamBenh() {
-        super("Khám bệnh");
+        super("Chi tiết khám bệnh");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
@@ -134,9 +134,9 @@ public class ChiTietKhamBenh extends JFrame {
         /*String sql = "select * from khambenh\n" +
                 " where mabs = (select mabs from bacsi where tenbs = '" + bacsi + "')\n" +
                 " and ngaykham = '" + date + "';";*/
-        String sql = "select tenbn from benhnhan\n" +
-                " where mabn = (select mabn from khambenh\n" +
-                " where mabs = (select mabs from bacsi where tenbs = '" + bacsi + "')\n" +
+        String sql = "select tenbn from BENHNHAN\n" +
+                " where mabn = (select mabn from KHAMBENH\n" +
+                " where mabs = (select mabs from BACSI where tenbs = '" + bacsi + "')\n" +
                 " and ngaykham = '" + date + "');";
         System.out.println(sql);
         try {
@@ -156,7 +156,7 @@ public class ChiTietKhamBenh extends JFrame {
     private void listDichvulistener(ListSelectionEvent evt) {
         String selected = dichVuList.getSelectedValue();
         if (selected != null) {
-            String sql = "select * from dichvu where tendv = '" + selected + "';";
+            String sql = "select * from DICHVU where tendv = '" + selected + "';";
             try {
                 JDBCConnect jdbcConnect = new JDBCConnect();
                 ResultSet resultSet = jdbcConnect.executeCommandGet(sql);
@@ -178,8 +178,8 @@ public class ChiTietKhamBenh extends JFrame {
         String bacsi = bacSiComboBox.getSelectedItem().toString();
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = outputFormat.format(dateChooser.getDate());
-        String sql = "select yeucaukham,mabn from khambenh\n" +
-                " where mabs = (select mabs from bacsi where tenbs = '" + bacsi + "')\n" +
+        String sql = "select yeucaukham,mabn from KHAMBENH\n" +
+                " where mabs = (select mabs from BACSI where tenbs = '" + bacsi + "')\n" +
                 " and ngaykham = '" + date + "';";
         System.out.println(sql);
         try {
@@ -204,21 +204,21 @@ public class ChiTietKhamBenh extends JFrame {
         String yeucau = yeuCauKhamField.getText();
         String ketluan = ketLuanArea.getText();
 
-        String sql = "SELECT makb FROM khambenh WHERE mabs = (SELECT mabs FROM bacsi WHERE tenbs = '" + bacsi + "') AND ngaykham = '" + date + "';";
+        String sql = "SELECT makb FROM KHAMBENH WHERE mabs = (SELECT mabs FROM BACSI WHERE tenbs = '" + bacsi + "') AND ngaykham = '" + date + "';";
 
         try {
             JDBCConnect jdbcConnect = new JDBCConnect();
             ResultSet resultSet = jdbcConnect.executeCommandGet(sql);
             if (resultSet.next()) {
                 String makb = resultSet.getString("makb");
-                sql = "INSERT INTO thuphi  VALUES ('" + makb + "', '" + madv + "', '1', '" + thanhtien + "');";
+                sql = "INSERT INTO THUPHI  VALUES ('" + makb + "', '" + madv + "', '1', '" + thanhtien + "');";
                 System.out.println(sql);
                 jdbcConnect.executeCommandInsert(sql);
 
-                sql = "UPDATE khambenh k\n" +
+                sql = "UPDATE KHAMBENH k\n" +
                         "JOIN (\n" +
                         "    SELECT makb \n" +
-                        "    FROM khambenh \n" +
+                        "    FROM KHAMBENH \n" +
                         "    WHERE mabn = "+mabn+" AND ngaykham = '"+date+"'\n" +
                         ") tmp ON k.makb = tmp.makb\n" +
                         "SET ketluan = '"+ketluan+"';\n";

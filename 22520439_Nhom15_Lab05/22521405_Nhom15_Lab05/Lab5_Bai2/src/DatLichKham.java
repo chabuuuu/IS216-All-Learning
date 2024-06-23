@@ -123,7 +123,7 @@ public class DatLichKham extends JFrame {
 
     private void kiemTraButtonActionPerformed(java.awt.event.ActionEvent event) {
         String userId = userIdField.getText();
-        String sql = "SELECT * FROM BENHNHAN WHERE MABN = " + userId;
+        String sql = "SELECT * FROM BENHNHAN WHERE MABN = '" + userId + "'";
         JDBCConnect jdbcConnect = new JDBCConnect();
         ResultSet resultSet = jdbcConnect.executeCommandGet(sql);
         try {
